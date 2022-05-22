@@ -2,6 +2,7 @@ NAME	= minishell
 
 SOURCES =	ft_split2.c \
 			parsing.c \
+			signal.c \
 
 OBJECTS = ${SOURCES:.c=.o}
 
@@ -12,7 +13,7 @@ CC 		= gcc ${FLAGS}
 all:		${NAME}
 
 $(NAME):	${OBJECTS} libft.a
-			${CC} ${SOURCES} libft.a -o ${NAME} -fsanitize=address
+			${CC} ${SOURCES} libft.a -o ${NAME} -fsanitize=address -lreadline
 
 libft.a:
 		make -C libft
@@ -24,6 +25,7 @@ clean:
 
 fclean: clean
 			-rm	-f ${NAME}
+			-rm -f libft.a
 			make fclean -C libft
 re:		fclean all
 .PHONY: all clean fclean re bonus libft.a

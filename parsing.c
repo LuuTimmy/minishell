@@ -1,46 +1,78 @@
 #include "parsing.h"
 
-char *parsing()
+char **putpath(char **env)
 {
-    
+	int i;
+	char *nopath;
+	char **split;
+
+	i = 0;
+	while (env[i] != NULL)
+	{
+		if (ft_strncmp("PATH=", env[i], 5) == 0)
+		{
+			nopath = ft_substr(env[i], 5, ft_strlen(env[i]) - 5);
+			split = ft_split(nopath, ':');
+			free(nopath);
+			return (split);
+		}
+		i++;
+	}
+	return (NULL);
 }
 
-int main(int argc, char **argv, char **env)
+char **parsing(char *line, char *set)
 {
-    char *str;
-	char *goodstr;
-    char *set;
-	char **s;
-	int i = 0;
+    char **str;
+    int i;
 
-    str = "bonbon <<yolo < Je suis un chocolat   $lion | gentil | et kangourou > punaise >>>> fzefz >> $a";
-	goodstr = "& echo salut > yo\" le\'s gens\"";
-    set = "$";
-
-    s = mini_split(goodstr, set);
-	i = 0;
-	while (s[i] != NULL)
+    i = 0;
+    str = mini_split(line, set);
+    while (str[i] != NULL)
 	{
-		if (s[i][0] == 0)
+		if (str[i][0] == 0)
 			return (0);
-		if (verifset(s[i][0], set) == 1 && ft_strlen(s[i]) >= 2)
+		if (verifset(str[i][0], set) == 1 && ft_strlen(str[i]) >= 2)
 		{
-			if (ft_strlen(s[i]) == 2)
+			if (ft_strlen(str[i]) == 2)
 			{
-				if (s[i][0] != s[i][1])
+				if (str[i][0] != str[i][1])
 					return (0);
 			}
 			else
 				return (0);
 		}
-		i++;
-	}
-	i = 0;
-	while (s[i] != NULL)
-	{
-		printf("%s\n", s[i]);
-		i++;
-	}
-	ft_free(s);
+        i++;
+    }
+    ft_free(str);
+    return (NULL);
+}
+
+void sigint(int sig_no)
+{
+	printf("\nMinishell ");
+}
+
+int main(int argc, char **argv, char **env)
+{
+    char *str;
+    char **commandsplit;
+    str = readline("Minishell ");
+    // str = "bonbon << yolo < Je suis un chocolat $lion | gentil | et kangourou > punaise >> fzefz >> $a";
+    // str = "& echo salut > yo\" le\'s gens\"";
+    // str = "echo | zegzeg";
+    commandsplit = parsing(str, "><|&");
+	printf("%s", str);
+    free(str);
+
+	// signal
+	// struct sigaction action;
+
+	// memset(&action, 0, sizeof(action));
+	// action.sa_handler = &sigint;
+	// sigaction(SIGINT, &action, NULL);
+	// char *str = readline("Minishell ");
+	// printf("%s", str);
+	// free(str);
     return (0);
 }
