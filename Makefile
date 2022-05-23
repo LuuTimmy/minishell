@@ -13,7 +13,7 @@ CC 		= gcc ${FLAGS}
 all:		${NAME}
 
 $(NAME):	${OBJECTS} libft.a
-			${CC} ${SOURCES} libft.a -o ${NAME} -fsanitize=address -lreadline
+			${CC} ${SOURCES} libft.a -o ${NAME}  -lreadline
 
 libft.a:
 		make -C libft

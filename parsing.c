@@ -1,34 +1,13 @@
 #include "parsing.h"
 
-char **putpath(char **env)
-{
-	int i;
-	char *nopath;
-	char **split;
-
-	i = 0;
-	while (env[i] != NULL)
-	{
-		if (ft_strncmp("PATH=", env[i], 5) == 0)
-		{
-			nopath = ft_substr(env[i], 5, ft_strlen(env[i]) - 5);
-			split = ft_split(nopath, ':');
-			free(nopath);
-			return (split);
-		}
-		i++;
-	}
-	return (NULL);
-}
-
-char **parsing(char *line, char *set)
+char **parsing(char *line, char *set, char **env)
 {
     char **str;
-    int i;
+	int	i;
 
-    i = 0;
+	i = 0;
     str = mini_split(line, set);
-    while (str[i] != NULL)
+	while (str[i] != NULL)
 	{
 		if (str[i][0] == 0)
 			return (0);
@@ -44,35 +23,70 @@ char **parsing(char *line, char *set)
 		}
         i++;
     }
-    ft_free(str);
-    return (NULL);
+    return (str);
 }
 
-void sigint(int sig_no)
+// int	countword(char *str, char *set)
+// {
+// 	int	i;
+// 	int	j;
+
+// 	i = 0;
+// 	j = 0;
+// 	while (str[i] != '\0')
+// 	{
+// 		if (verifset(str[i], set) == 0 && verifset(str[i + 1], set) == 1)
+// 			j++;
+// 		i++;
+// 	}
+// 	return (j);
+// }
+
+char **parse(char *str)
 {
-	printf("\nMinishell ");
+	char **commandsplit;
+	int nb;
+	int i;
+
+	i = 0;
+	nb = 0;
+	while (str[i] != '\0')
+	{
+		if (str[i] == 39)
+		{
+			i++;
+			while (str[i] != 39)
+				i++;
+			nb++;
+		}
+		else if (str[i] == 34)
+		{
+			i++;
+			while (str[i] != 34)
+				i++;
+			nb++;
+		}
+		else if (str[i] == ' ' && (str[i + 1] != ' ' || verifset(str[i + 1], "\"\'") == 1))
+			nb++;
+		i++;
+	}
+	printf("%d", nb);
+	return (NULL);
 }
 
 int main(int argc, char **argv, char **env)
 {
     char *str;
-    char **commandsplit;
-    str = readline("Minishell ");
-    // str = "bonbon << yolo < Je suis un chocolat $lion | gentil | et kangourou > punaise >> fzefz >> $a";
-    // str = "& echo salut > yo\" le\'s gens\"";
-    // str = "echo | zegzeg";
-    commandsplit = parsing(str, "><|&");
-	printf("%s", str);
-    free(str);
-
-	// signal
-	// struct sigaction action;
-
-	// memset(&action, 0, sizeof(action));
-	// action.sa_handler = &sigint;
-	// sigaction(SIGINT, &action, NULL);
-	// char *str = readline("Minishell ");
-	// printf("%s", str);
-	// free(str);
+    char **linesplit;
+	char **commandsplit;
+	int i;
+	i = 0;
+    //str = readline("Minishell ");
+    //str = "bonbon << yolo < Je suis un chocolat lion | gentil | et kangourou > punaise >> fzefz >> $a";
+    str = "echo yo\" le\'s gens\"";
+    char *set;
+	set = "><|&";
+    linesplit = parsing(str, set, env);
+	commandsplit = parse(linesplit[i]);
     return (0);
 }
