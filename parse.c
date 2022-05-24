@@ -27,6 +27,47 @@ int	countword(char *str, char *set)
 	return (nb);
 }
 
+int	nbverifvar(char *str, char quote, int len)
+{
+	int	i;
+	int l;
+	int lvar;
+	char *test = "cho";
+	i = 0;
+	l = 0;
+	lvar = 0;
+	while (i < len && str[i] != '\0')
+	{
+		if (str[i] == '$' && verifset(str[i + 1], " \0") == 0 && quote != '\'')
+		{
+			while (verifset(str[i + l], " \0$") == 0)
+				l++;
+			lvar += ft_strlen(test); //verifenvir
+			i += l;
+		}
+		i++;
+	}
+	return (len - l + lvar);
+}
+
+char *ft_minicpy(char *str, int len, char quote)
+{
+	int		i;
+	int		l;
+	char	*temp;
+	int lenline;
+	int	j;
+	char *test = "cho";
+
+	i = 0;
+	l = 0;
+	j = 0;
+	int k = 0;
+	lenline = nbverifvar(str, quote, len);
+
+	// return (temp);
+}
+
 static char	**putword(char **fstr, const char *str, char *set)
 {
 	int		nword;
@@ -53,8 +94,8 @@ static char	**putword(char **fstr, const char *str, char *set)
             }
             while (verifset(str[i + len], set) == 0 && str[i + len] != '\0')
 				len++;
-            fstr[nword] = ft_substr(str, i, len);
-			if (!fstr[nword])
+            fstr[nword] = ft_minicpy((char *)str + i, len, temp); //ft_substr(str, i, len);
+			if (fstr[nword] == NULL)
 				ft_free(fstr);
 			i += len;
             if (temp != 0)
