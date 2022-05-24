@@ -26,54 +26,6 @@ char **parsing(char *line, char *set, char **env)
     return (str);
 }
 
-// int	countword(char *str, char *set)
-// {
-// 	int	i;
-// 	int	j;
-
-// 	i = 0;
-// 	j = 0;
-// 	while (str[i] != '\0')
-// 	{
-// 		if (verifset(str[i], set) == 0 && verifset(str[i + 1], set) == 1)
-// 			j++;
-// 		i++;
-// 	}
-// 	return (j);
-// }
-
-char **parse(char *str)
-{
-	char **commandsplit;
-	int nb;
-	int i;
-
-	i = 0;
-	nb = 0;
-	while (str[i] != '\0')
-	{
-		if (str[i] == 39)
-		{
-			i++;
-			while (str[i] != 39)
-				i++;
-			nb++;
-		}
-		else if (str[i] == 34)
-		{
-			i++;
-			while (str[i] != 34)
-				i++;
-			nb++;
-		}
-		else if (str[i] == ' ' && (str[i + 1] != ' ' || verifset(str[i + 1], "\"\'") == 1))
-			nb++;
-		i++;
-	}
-	printf("%d", nb);
-	return (NULL);
-}
-
 int main(int argc, char **argv, char **env)
 {
     char *str;
@@ -83,7 +35,8 @@ int main(int argc, char **argv, char **env)
 	i = 0;
     //str = readline("Minishell ");
     //str = "bonbon << yolo < Je suis un chocolat lion | gentil | et kangourou > punaise >> fzefz >> $a";
-    str = "echo yo\" le\'s gens\"";
+    str = "echo yo\" l'e gens\"yo\' l\"e gens\'";
+	//str = "echo yo";
     char *set;
 	set = "><|&";
     linesplit = parsing(str, set, env);

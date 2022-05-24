@@ -12,5 +12,6 @@
 char	**mini_split(char const *s, char *c);
 void	ft_free(char **fstr);
 int     verifset(char c, char *set);
+char **parse(char *str);
 
 #endif

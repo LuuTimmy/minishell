@@ -3,6 +3,7 @@ NAME	= minishell
 SOURCES =	ft_split2.c \
 			parsing.c \
 			signal.c \
+			parse.c \
 
 OBJECTS = ${SOURCES:.c=.o}
 
