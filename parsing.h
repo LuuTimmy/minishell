@@ -9,11 +9,11 @@
 #include <readline/history.h>
 #include <signal.h>
 
-char	**mini_split(char const *s, char *c);
+char	**mini_split(char *s, char *c);
 void	ft_free(char **fstr);
 int     verifset(char c, char *set);
 char	**parse(char *str);
-int		nbverifvar(char *s, char quote, int len);
+char	**parsev2(char *str);
 
 typedef struct s_lst {
 

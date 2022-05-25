@@ -4,6 +4,7 @@ SOURCES =	ft_split2.c \
 			parsing.c \
 			signal.c \
 			parse.c \
+			parsev2.c
 
 OBJECTS = ${SOURCES:.c=.o}
 
@@ -14,7 +15,7 @@ CC 		= gcc ${FLAGS}
 all:		${NAME}
 
 $(NAME):	${OBJECTS} libft.a
-			${CC} ${SOURCES} libft.a -o ${NAME}  -lreadline
+			${CC} ${SOURCES} libft.a -o ${NAME} -lreadline
 
 libft.a:
 		make -C libft

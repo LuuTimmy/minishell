@@ -34,15 +34,14 @@ int main(int argc, char **argv, char **env)
 	int i;
 	i = 0;
     //str = readline("Minishell ");
-    //str = "bonbon << yolo < Je suis un chocolat lion | gentil | et kangourou > punaise >> fzefz >> $a";
+    //str = "bonbon << yolo < Je suis un chocolat lion | \"gentil | et\" kangourou> punaise >> fzefz >> $a";
     // str = "echo yo\" l'e gens\"yo\' l\"e gens\'";
-	str = "echo yo\" $lol$sal   jo  $plo\"$plop";
-	str = " $lol $sal   jo  $plo";
-    // char *set;
-	// set = "><|&";
-    // linesplit = parsing(str, set, env);
-	// commandsplit = parse(linesplit[i]);
+	str = "echo yo\" $lop$sap   jo  $plo\"$zjrpj\"gezjezope\"zjhzeophz"; //34
+	//str = " $lol $sal   jo  $plo";
+    char *set;
+	set = "><|&";
+    linesplit = parsing(str, set, env);
+	commandsplit = parsev2(linesplit[0]);
 
-	printf("%d", nbverifvar(str, '\"', 20));
     return (0);
 }

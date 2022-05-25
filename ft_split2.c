@@ -14,7 +14,23 @@ int verifset(char c, char *set)
 	return (0);
 }
 
-static int	nword(char const *s, char *c)
+int	ft_strstr(char *str)
+{
+	int	i;
+	char temp;
+
+	i = 1;
+	temp = str[0];
+	while (str[i] != '\0')
+	{
+		if (str[i] == temp)
+			return (i);
+		i++;
+	}
+	return (-1);
+}
+
+static int	nword(char *s, char *c)
 {
 	int	i;
 	int nbword;
@@ -26,15 +42,19 @@ static int	nword(char const *s, char *c)
 		if (verifset(s[i], c) == 0)
 		{
 			while (verifset(s[i], c) == 0 && s[i] != '\0')
+			{
+				if (verifset(s[i], "\"\'") == 1)
+					if (ft_strstr((char *)s + i) > 0)
+						i += ft_strstr((char *)s + i);
+					else
+						return (-1);
 				i++;
-			nbword++;
+			}
 		}
 		else if (verifset(s[i], c) == 1)
-		{
 			while (verifset(s[i], c) == 1 && s[i] != '\0')
 				i++;
-			nbword++;
-		}
+		nbword++;
 	}
 	return (nbword);
 }
@@ -52,7 +72,7 @@ void	ft_free(char **fstr)
 	free(fstr);
 }
 
-static char	**putword(char **fstr, const char *s, char *c)
+static char	**putword(char **fstr, char *s, char *c)
 {
 	int		nword;
 	size_t	len;
@@ -66,7 +86,14 @@ static char	**putword(char **fstr, const char *s, char *c)
 		len = 0;
 		if (verifset(s[i + len], c) == 0)
 			while (verifset(s[i + len], c) == 0 && s[i + len] != '\0')
+			{
+				if (verifset(s[i + len], "\"\'") == 1)
+					if (ft_strstr((char *)s + i + len) > 0)
+						len += ft_strstr((char *)s + i + len);
+					else
+						return (NULL);
 				len++;
+			}
 		else
 			while (verifset(s[i + len], c) == 1 && s[i + len] != '\0')
 				len++;
@@ -81,7 +108,7 @@ static char	**putword(char **fstr, const char *s, char *c)
 	return (fstr);
 }
 
-char	**mini_split(char const *s, char *c)
+char	**mini_split(char *s, char *c)
 {
 	char	**fstr;
 	int		nbword;
@@ -93,6 +120,6 @@ char	**mini_split(char const *s, char *c)
 	if (!fstr)
 		return (NULL);
 	fstr[nbword] = 0;
-	putword(fstr, s, c);
+	fstr = putword(fstr, s, c);
 	return (fstr);
 }

@@ -36,17 +36,21 @@ int	nbverifvar(char *str, char quote, int len)
 	i = 0;
 	l = 0;
 	lvar = 0;
-	while (i < len && str[i] != '\0')
+	while (i < len)
 	{
 		if (str[i] == '$' && verifset(str[i + 1], " \0") == 0 && quote != '\'')
 		{
-			while (verifset(str[i + l], " \0$") == 0)
+			while (verifset(str[i + l], "$ \0") == 0)
 				l++;
-			lvar += ft_strlen(test); //verifenvir
+			lvar += 3; //verifenvir
 			i += l;
 		}
 		i++;
 	}
+	// if (str[0] == 32)
+	// {
+	// 	printf("%d %d %d", len, l, lvar);
+	// }
 	return (len - l + lvar);
 }
 
@@ -64,8 +68,8 @@ char *ft_minicpy(char *str, int len, char quote)
 	j = 0;
 	int k = 0;
 	lenline = nbverifvar(str, quote, len);
-
-	// return (temp);
+	printf("%s == %d == %d == %c\n", str, len, lenline, quote);
+	return ("lol");
 }
 
 static char	**putword(char **fstr, const char *str, char *set)
@@ -116,7 +120,8 @@ char **parse(char *str)
 	if (str == NULL)
 		return (NULL);
 	fstr[nbword] = 0;
+	
 	fstr = putword(fstr, str, " \"\'");
-	for (int i = 0; fstr[i] != NULL; i++)
-		printf("%s\n", fstr[i]);
+	// for (int i = 0; fstr[i] != NULL; i++)
+	// 	printf("%s\n", fstr[i]);
 }
