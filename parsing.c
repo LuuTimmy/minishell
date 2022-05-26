@@ -36,12 +36,14 @@ int main(int argc, char **argv, char **env)
     //str = readline("Minishell ");
     //str = "bonbon << yolo < Je suis un chocolat lion | \"gentil | et\" kangourou> punaise >> fzefz >> $a";
     //str = "echo yo\" l'e gens\"yo\' l\"e gens\'";
-	str = "echo yo\"$lop$sap   jo  $plo\"$zjrpj\"gezjezope\"zjhzeophz"; //34
-	//str = " $lol $sal   jo  $plo";
+	//str = "echo \'yo\"$lop$sap   jo  $plo\"$zjrpj\"gezjezope\"zjhzeophz\'"; //34
+	str = "echo -nr lol\"$lol $sal   p\"co  $plo  \'\"zoegjg $a lpaga\"\'";
     char *set;
 	set = "><|&";
     linesplit = parsing(str, set, env);
 	commandsplit = parsev2(linesplit[0]);
 
+	ft_free(linesplit);
+	//ft_free(commandsplit);
     return (0);
 }

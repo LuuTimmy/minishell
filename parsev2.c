@@ -5,13 +5,19 @@ static int	nbverifvar(char *str)
 	int	i;
 	int l;
 	int lvar;
+	int actualquote;
 
 	i = 0;
 	l = 0;
 	lvar = 0;
+	actualquote = 0;
 	while (str[i] != '\0')
 	{
-		if (str[i] == '$' && str[i + 1] != '\0' && verifset(str[i + 1], " \'\"") == 0)
+		if (str[i] == '\'' && actualquote == 0)
+			actualquote = 1;
+		else if (str[i] == '\'' && actualquote == 1)
+			actualquote = 0;
+		if (str[i] == '$' && str[i + 1] != '\0' && verifset(str[i + 1], " $\'\"") == 0 && actualquote == 0)
 		{
             l++;
             while (str[i + 1] != '\0' && verifset(str[i + 1], " $\'\"") == 0)
@@ -23,10 +29,9 @@ static int	nbverifvar(char *str)
 		}
 		i++;
 	}
+	//printf("%ld - %d + %d = %ld\n", ft_strlen(str),l ,lvar, ft_strlen(str) - l + lvar);
 	return (ft_strlen(str) - l + lvar);
 }
-
-
 
 char *putarg(char *str, int len)
 {
@@ -62,7 +67,6 @@ char *putarg(char *str, int len)
 		}
 	}
     fstr[len] = '\0';
-	printf("%s", fstr);
     return (fstr);
 }
 
@@ -70,7 +74,11 @@ char **parsev2(char *str)
 {
     int len;
     char *temp;
+	char **fstr;
+
     len = nbverifvar(str);
     temp = putarg(str, len);
-    return (NULL);
+	fstr = nano_split(temp, 32);
+	free(temp);
+    return (fstr);
 }
