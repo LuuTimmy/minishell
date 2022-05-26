@@ -35,8 +35,8 @@ int main(int argc, char **argv, char **env)
 	i = 0;
     //str = readline("Minishell ");
     //str = "bonbon << yolo < Je suis un chocolat lion | \"gentil | et\" kangourou> punaise >> fzefz >> $a";
-    // str = "echo yo\" l'e gens\"yo\' l\"e gens\'";
-	str = "echo yo\" $lop$sap   jo  $plo\"$zjrpj\"gezjezope\"zjhzeophz"; //34
+    //str = "echo yo\" l'e gens\"yo\' l\"e gens\'";
+	str = "echo yo\"$lop$sap   jo  $plo\"$zjrpj\"gezjezope\"zjhzeophz"; //34
 	//str = " $lol $sal   jo  $plo";
     char *set;
 	set = "><|&";

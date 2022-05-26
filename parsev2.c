@@ -23,9 +23,10 @@ static int	nbverifvar(char *str)
 		}
 		i++;
 	}
-	printf("%ld %d %d === %ld", ft_strlen(str), l, lvar, ft_strlen(str) - l + lvar);
 	return (ft_strlen(str) - l + lvar);
 }
+
+
 
 char *putarg(char *str, int len)
 {
@@ -34,7 +35,6 @@ char *putarg(char *str, int len)
 	int actualquote;
 	int	i;
 	int j;
-	int k;
 
 	i = 0;
 	j = 0;
@@ -52,14 +52,7 @@ char *putarg(char *str, int len)
 				i++;
 			i++;
 			// //cherchENV;
-			k = 0;
 			j += ft_strlcpy(fstr + j, test, ft_strlen(test) + 1);
-			// while (test[k] != '\0')
-			// {
-			// 	fstr[j] = test[k];
-			// 	k++;
-			// 	j++;
-			// }
 		}
 		else
 		{
